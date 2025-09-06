@@ -2,8 +2,10 @@ import { Head } from '@inertiajs/react';
 import Footer from './footer';
 import Header from './header';
 import Nav from './nav';
+import ProductScroll from './productscroll';
 
 export default function Men(props) {
+    const category = 'men';
     return (
         <>
             <Head title="Men Wear |ProdAfrica">
@@ -17,6 +19,7 @@ export default function Men(props) {
                 homePageText={'Effortless, bold, and iconic. Stand out this school year, no matter the moment.'}
                 homePageBtnText={'Now'}
             />
+            <ProductScroll items={props['products']} category={category} />
             <Footer />
         </>
     );

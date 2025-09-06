@@ -78,7 +78,7 @@ export default function Product(props) {
                             className="flex w-90 cursor-pointer flex-col justify-start gap-2"
                             method="post"
                             href={currentURL}
-                            transform={(data) => ({ ...data, prodId: props['product'].Id })}
+                            transform={(data) => ({ ...data, prodId: props['product'].id })}
                         >
                             {({ errors, processing, wasSuccessful }) => (
                                 <>

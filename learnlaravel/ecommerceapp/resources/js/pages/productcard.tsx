@@ -1,8 +1,9 @@
 import { Link } from '@inertiajs/react';
 
 export default function ProductCard({ category = '', item, index }) {
+    console.log(item);
     return (
-        <Link className="swiper-slide" href={`${category}/products/${item.Id}`}>
+        <Link className="swiper-slide" href={`${category}/products/${item.id}`}>
             <div className="relative">
                 <img key={index} className="h-65 w-65" src={item.Image_url} alt="" />
                 <span className="absolute top-2 right-2 origin-top-left cursor-pointer text-2xl transition-transform duration-50 ease-in-out hover:text-red-900">

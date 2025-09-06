@@ -15,7 +15,7 @@ import ProductCard from './productcard';
 export default function ProductScroll({ category, items }) {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
-    console.log(prevRef);
+    console.log(items);
     return (
         <>
             <div className="relative mx-12 my-10">

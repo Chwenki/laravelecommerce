@@ -9,7 +9,8 @@ use Inertia\Inertia;
 class MenController extends Controller
 {
     function get() {
+        $products = DB::select('select * from products');
         $prodNum = DB::table('cart_products')->count();
-        return Inertia::render('men', ['prodNum' => $prodNum]);
+        return Inertia::render('men', ['products' => $products,'prodNum' => $prodNum]);
     }
 }

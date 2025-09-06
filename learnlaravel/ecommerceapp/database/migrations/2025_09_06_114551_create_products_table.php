@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->float('price');
-            $table->string('image_path');
+            $table->string('Name');
+            $table->string('Type');
+            $table->string('Description');
+            $table->integer('Colors');
+            $table->float('Price');
+            $table->float('Rating');
+            $table->float('Rating_no');
+            $table->string('Image_url');
+            $table->string('Thumbnails');
         });
     }
 
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('products');
     }
 };

@@ -19,27 +19,29 @@ export default function Cart(props) {
                                 TOTAL: ({props['prodNum']} Items) <span className="text-bold">{props['totalPrice']}FCFA</span>
                             </p>
                             <p>Items in your bag are not reserved — check out now to make them yours.</p>
-                            <div className="mt-3 flex flex-col gap-2">
+                            <div className="mt-3 flex w-full flex-col gap-2">
                                 {props['cart_products'].map((item, index) => (
                                     <div className="flex flex-row gap-3 border-2 border-gray-700 p-2" key={index}>
                                         <img src={item.Image_url} className="h-30 w-30" alt="" />
-                                        <div className="flex flex-row justify-between">
-                                            <span>{item.Name}</span>
+                                        <div>
                                             <Form
-                                                className="w-90"
+                                                className="flex w-90 flex-row justify-between"
                                                 method="post"
                                                 href={currentURL}
-                                                transform={(data) => ({ ...data, cprodId: item.Id })}
+                                                transform={(data) => ({ ...data, cprodId: item.id })}
                                             >
                                                 {({ processing }) => (
                                                     <>
-                                                        {processing ? (
-                                                            <button type="submit" className="animate-spin text-white"></button>
-                                                        ) : (
-                                                            <button type="submit" className="cursor-pointer text-lg">
-                                                                <i class="fa-solid fa-trash"></i>
-                                                            </button>
-                                                        )}
+                                                        <div className="flex flex-row justify-between">
+                                                            <span>{item.Name}</span>
+                                                            {processing ? (
+                                                                <svg className="animate-spin text-white"></svg>
+                                                            ) : (
+                                                                <button type="submit" className="cursor-pointer text-lg">
+                                                                    <i class="fa-solid fa-trash"></i>
+                                                                </button>
+                                                            )}
+                                                        </div>
                                                     </>
                                                 )}
                                             </Form>
@@ -55,13 +57,13 @@ export default function Cart(props) {
                                     <p>{props['prodNum']} Item(s)</p>
                                     <p>Sales Tax</p>
                                     <p>Delivery</p>
-                                    <p>Total</p>
+                                    <p className="mt-4 font-bold">Total</p>
                                 </div>
-                                <div>
+                                <div className="relative right-0 text-right">
                                     <p>{props['totalPrice']}FCFA</p>
                                     <p>{props['totalPrice'] * 0.1925}FCFA</p>
                                     <p>2000FCFA</p>
-                                    <p>{props['totalPrice'] * 0.1925 + 2000}FCFA</p>
+                                    <p className="mt-4 font-bold">{props['totalPrice'] * 0.1925 + props['totalPrice'] + 2000}FCFA</p>
                                 </div>
                             </div>
                             <p>From $17.30/month, or 4 payments at 0% interest with Klarna Check purchase power</p>

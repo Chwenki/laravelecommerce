@@ -27,7 +27,7 @@ class ProductController extends Controller
         $thumbs = DB::table('products')->where('id', $prodId)->value('Thumbnails');
         $thumbnails = explode(',', $thumbs);
         DB::table('cart_products')->insert([
-            'Id' => $product->Id,
+            'id' => $product->id,
             'Name' => $product->Name,
             'Type' => $product->Type,
             'Description' => $product->Description,
