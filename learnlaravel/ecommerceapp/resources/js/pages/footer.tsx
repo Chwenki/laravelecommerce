@@ -167,7 +167,7 @@ export default function Footer() {
                             <li>We're here to help you with your order!</li>
                             <li>
                                 <Link>
-                                    <button className="bg-black p-3 rounded-md hover:bg-gray-700">Text (237) 655555555</button>
+                                    <button className="rounded-md bg-black p-3 hover:bg-gray-700">Text (237) 655555555</button>
                                 </Link>
                             </li>
                             <li>Text us anytime and we'll respond within 24 hours! Or you can chat with us during business hours.</li>

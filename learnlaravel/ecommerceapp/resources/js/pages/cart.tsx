@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Form } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
 import Footer from './footer';
 import Nav from './nav';
 
@@ -32,10 +33,10 @@ export default function Cart(props) {
                                             >
                                                 {({ processing }) => (
                                                     <>
-                                                        <div className="flex flex-row justify-between">
+                                                        <div className="flex flex-row justify-between items-center">
                                                             <span>{item.Name}</span>
                                                             {processing ? (
-                                                                <svg className="animate-spin text-white"></svg>
+                                                                <LoaderCircle className="h-4 w-4 animate-spin" />
                                                             ) : (
                                                                 <button type="submit" className="cursor-pointer text-lg">
                                                                     <i class="fa-solid fa-trash"></i>

@@ -7,15 +7,10 @@ import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
 import ProductCard from './productcard';
 
-// import Swiper styles
-
-// import 'swiper/css/pagination';
-// import 'swiper/css/scrollbar';
-
 export default function ProductScroll({ category, items }) {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
-    console.log(items);
+
     return (
         <>
             <div className="relative mx-12 my-10">
@@ -27,8 +22,8 @@ export default function ProductScroll({ category, items }) {
                         slidesPerView={4}
                         slidesPerGroup={4}
                         navigation={{
-                            nextEl: nextRef.current,
-                            prevEl: prevRef.current,
+                            nextEl: '#nextRefId',
+                            prevEl: '#prevRefId',
                         }}
                         onSwiper={(swiper) => console.log(swiper)}
                         onSlideChange={() => console.log('slide change')}
@@ -44,6 +39,7 @@ export default function ProductScroll({ category, items }) {
                 </div>
                 <button
                     ref={nextRef}
+                    id="nextRefId"
                     className={`absolute top-1/2 right-0 z-10 h-14 w-14 cursor-pointer rounded-full bg-gray-600 p-3 text-white hover:bg-gray-400 [&.swiper-button-disabled]:hidden`}
                 >
                     <span className="text-white">
@@ -52,6 +48,7 @@ export default function ProductScroll({ category, items }) {
                 </button>
                 <button
                     ref={prevRef}
+                    id="prevRefId"
                     className={`absolute top-1/2 left-0 z-10 h-14 w-14 cursor-pointer rounded-full bg-gray-600 p-3 text-white hover:bg-gray-400 [&.swiper-button-disabled]:hidden`}
                 >
                     <span className="text-white">
