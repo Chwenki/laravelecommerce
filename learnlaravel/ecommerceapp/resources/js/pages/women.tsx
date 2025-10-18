@@ -17,11 +17,11 @@ export default function Women(props) {
             </Head>
             <Nav prodNum={props['prodNum']} />
             <Header
+                category={category}
                 homePageImg={'/images/homepagewoman.jpg'}
                 homePageText={
                     'Redefine your style. Discover timeless fashion and everyday essentials made for women who love to shine.Effortless, bold, and iconic. Stand out this school year, no matter the moment.'
                 }
-                homePageBtnText={'Now'}
             />
             <ProductScroll items={props['products']} category={category} />
             <Footer />

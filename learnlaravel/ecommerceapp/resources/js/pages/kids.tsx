@@ -14,9 +14,9 @@ export default function Kids(props) {
             </Head>
             <Nav prodNum={props['prodNum']} />
             <Header
+                category={category}
                 homePageImg={'/images/homepagekids.jpg'}
                 homePageText={'Bright colors, big smiles! Discover kids’ fashion and essentials made for every adventure, every day.'}
-                homePageBtnText={'Now'}
             />
             <ProductScroll items={props['products']} category={category} />
             <Footer />

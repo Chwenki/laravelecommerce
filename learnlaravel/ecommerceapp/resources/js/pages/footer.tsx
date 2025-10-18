@@ -1,6 +1,10 @@
-import { Head, Link } from '@inertiajs/react';
+import { post } from '@/actions/App/Http/Controllers/SubscribeController';
+import { Form, Head, Link } from '@inertiajs/react';
 
-export default function Footer() {
+export default function Footer(props) {
+    console.log(props);
+    const currentURL = window.location.href;
+
     return (
         <>
             <Head>
@@ -64,18 +68,37 @@ export default function Footer() {
                     </ul>
                 </div>
                 <div className="flex flex-col gap-8 bg-gray-800 px-10 py-10 text-white">
-                    <div>
-                        <h1 className="text-3xl font-extrabold">THE WEEKEND AWAITS</h1>
-                        <p>Sign up now to get alerts for new product drops and rad promotions</p>
-                    </div>
-                    <div className="inline-flex gap-3">
-                        <input
-                            className="w-70 rounded-md bg-gray-200 p-3 placeholder:text-gray-800"
-                            type="email"
-                            placeholder="Enter your email address"
-                        />
-                        <button className="cursor-pointer rounded-md bg-black p-4 hover:bg-gray-700">SUBSCRIBE</button>
-                    </div>
+                    <Form {...post.form()} className="flex w-90 cursor-pointer flex-col justify-start gap-2" options={{ preserveScroll: true }}>
+                        {({ processing, wasSuccessful }) => (
+                            <>
+                                {wasSuccessful ? (
+                                    <div className="flex h-20 w-200 cursor-default items-center text-lg font-bold text-green-500">
+                                        Great! We've sent you an email to confirm your subscription.
+                                    </div>
+                                ) : (
+                                    <>
+                                        <div>
+                                            <h1 className="text-3xl font-extrabold">THE WEEKEND AWAITS</h1>
+                                            <p>Sign up now to get alerts for new product drops and rad promotions</p>
+                                        </div>
+                                        <div className="inline-flex gap-3">
+                                            <input
+                                                className="w-70 rounded-md bg-gray-200 p-3 text-black placeholder:text-gray-800"
+                                                type="email"
+                                                placeholder="Enter your email address"
+                                                name="email"
+                                                id="email"
+                                                required
+                                            />
+                                            <button type="submit" className="cursor-pointer rounded-md bg-black p-4 hover:bg-gray-700">
+                                                SUBSCRIBE
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
+                            </>
+                        )}
+                    </Form>
                 </div>
                 <div className="bg-gray-900 px-10 py-10 text-white">
                     <ul className="mb-5 grid grid-cols-4 text-sm">

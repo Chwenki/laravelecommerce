@@ -1,4 +1,5 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Breadcrumb, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Form, Head, Link } from '@inertiajs/react';
 import { useState } from 'react';
@@ -10,8 +11,13 @@ export default function Product(props) {
 
     console.log(props);
     const prodimg = document.getElementById('prodimg');
-    prodimg?.addEventListener('mouseover', function () {
-        prodimg.classList.add('hover:scale-110');
+
+    let posX = 0;
+    prodimg?.addEventListener('mouseover', function (e) {
+        const posX = e.pageX;
+        const posY = e.pageY;
+        console.log(posX, posY);
+        prodimg.classList.add('hover:scale-210', `relative`, `hover:top-${posY}`);
     });
 
     const thumbs = document.querySelectorAll('.thumb');
@@ -28,48 +34,72 @@ export default function Product(props) {
         <>
             <Head title="Product Details | ProdAfrica"></Head>
             <Nav prodNum={props['prodNum']} />
-            <Breadcrumb className="my-4 flex list-none flex-row items-center">
+            <Breadcrumb className="mx-12 mt-25 mb-2 flex list-none flex-row items-center">
                 <BreadcrumbList>
                     <BreadcrumbLink asChild>
-                        <Link href="/">Home</Link>
+                        <Link className="text-lg" href="/">
+                            Home
+                        </Link>
                     </BreadcrumbLink>
                 </BreadcrumbList>
                 <BreadcrumbSeparator />
                 <BreadcrumbList>
                     <BreadcrumbLink asChild>
-                        <Link href="/">Home</Link>
+                        <Link className="text-lg" href={'/' + props['product']['Genre'].toLowerCase()}>
+                            {props['product']['Genre']}
+                        </Link>
                     </BreadcrumbLink>
                 </BreadcrumbList>
                 <BreadcrumbSeparator />
                 <BreadcrumbList>
                     <BreadcrumbLink asChild>
-                        <Link href="/">Home</Link>
+                        <Link className="text-lg" href={'/' + props['product']['Genre'].toLowerCase() + '-' + props['product']['Type'].toLowerCase()}>
+                            {props['product']['Type']}
+                        </Link>
                     </BreadcrumbLink>
                 </BreadcrumbList>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                    <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-                </BreadcrumbItem>
             </Breadcrumb>
-            <div className="mx-12 my-30 grid grid-cols-3 gap-2">
-                <div className="col-span-2 flex flex-row gap-2">
-                    <div className="flex flex-col gap-2">
-                        {props['thumbnails'].map((item, index) => (
-                            <img className="thumb h-30 w-110" src={item} key={index} alt="" />
-                        ))}
+            <div className="mx-12 mt-10 mb-30 grid grid-cols-3 gap-2">
+                <div className="col-span-2 gap-2">
+                    <div className="flex flex-row gap-2">
+                        <div className="flex flex-col gap-2">
+                            {props['thumbnails'].map((item, index) => (
+                                <img className="thumb h-30 w-110" src={item} key={index} alt="" />
+                            ))}
+                        </div>
+                        <div className="overflow-hidden">
+                            <img
+                                id="prodimg"
+                                className="z--1 h-full w-full transition-transform duration-300 ease-in-out"
+                                src={props['product'].Image_url}
+                                alt=""
+                            />
+                            <p className="text-md text-gray-600">{props['product'].Description}</p>
+                        </div>
                     </div>
-
-                    <div className="overflow-hidden">
-                        <img
-                            id="prodimg"
-                            className="z--1 h-full w-full transition-transform duration-300 ease-in-out hover:scale-210"
-                            src={props['product'].Image_url}
-                            alt=""
-                        />
-                        <p className="text-md text-gray-600">{props['product'].Description}</p>
-                    </div>
+                    <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger className="text-lg">Reviews</AccordionTrigger>
+                            <AccordionContent className="flex flex-col gap-4 text-balance">
+                                <p className="text-base">
+                                    Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers
+                                    unparalleled performance and reliability.
+                                </p>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-2">
+                            <AccordionTrigger className="text-lg">Description</AccordionTrigger>
+                            <AccordionContent className="flex flex-col gap-4 text-justify">
+                                <div className="flex items-center gap-5">
+                                    <p className="text-base">{props['product']['Description']}</p>
+                                    <img className="h-80 w-80" src={props['thumbnails'][0]} alt="" />
+                                </div>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
                 </div>
-                <div className="col-span-1 font-bold">
+
+                <div className="sticky top-200 col-span-1 font-bold">
                     <h1 className="pb-5 text-2xl">{props['product'].Name}</h1>
                     <p className="text-black-600 text-sm font-extrabold">{props['product'].Price.toLocaleString()} FCFA</p>
                     <p className="my-5">Promo codes will not apply to this product.</p>
@@ -80,7 +110,7 @@ export default function Product(props) {
                             href={currentURL}
                             transform={(data) => ({ ...data, prodId: props['product'].id })}
                         >
-                            {({ errors, processing, wasSuccessful }) => (
+                            {({ processing, wasSuccessful }) => (
                                 <>
                                     <div className="flex flex-row gap-2">
                                         <Button
@@ -90,7 +120,7 @@ export default function Product(props) {
                                         >
                                             <span className="text-left text-white">{processing ? 'Adding...' : 'Add to bag'}</span>
                                             <span className="text-right text-white">
-                                                <i class="fa-solid fa-bag-shopping"></i>
+                                                <i class="fa-solid fa-bag-shopping"></i>        
                                             </span>
                                         </Button>
                                         <span
@@ -133,5 +163,30 @@ export default function Product(props) {
             </div>
             <Footer />
         </>
+    );
+}
+
+export function AccordionDemo() {
+    return (
+        <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
+            <AccordionItem value="item-1">
+                <AccordionTrigger>Reviews</AccordionTrigger>
+                <AccordionContent className="flex flex-col gap-4 text-balance">
+                    <p>
+                        Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled
+                        performance and reliability.
+                    </p>
+                </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+                <AccordionTrigger>Description</AccordionTrigger>
+                <AccordionContent className="flex flex-col gap-4 text-balance">
+                    <p>
+                        We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days, while express
+                        shipping ensures delivery within 1-2 business days.
+                    </p>
+                </AccordionContent>
+            </AccordionItem>
+        </Accordion>
     );
 }

@@ -13,13 +13,13 @@ export default function Men(props) {
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
                 <script src="https://kit.fontawesome.com/2139c11586.js" crossOrigin="anonymous"></script>
             </Head>
-            <Nav prodNum={props['prodNum']} />
+            <Nav prodNum={props['prodNum']} modal={props['modal']} />
             <Header
+                category={category}
                 homePageImg={'/images/homepageman1.jpg'}
                 homePageText={'Effortless, bold, and iconic. Stand out this school year, no matter the moment.'}
-                homePageBtnText={'Now'}
             />
-            <ProductScroll items={props['products']} category={category} />
+            <ProductScroll items={props['products']} wishlistprod={props['wishlistprod']} category={category} />
             <Footer />
         </>
     );

@@ -16,9 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable(); // Made nullable for social login
             $table->rememberToken();
             $table->timestamps();
+            $table->text('google_id')->nullable();
+            $table->text('google_token')->nullable();
+            $table->text('google_refresh_token')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

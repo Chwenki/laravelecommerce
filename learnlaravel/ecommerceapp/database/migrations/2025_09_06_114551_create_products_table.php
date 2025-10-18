@@ -17,11 +17,13 @@ return new class extends Migration
             $table->string('Type');
             $table->string('Description');
             $table->integer('Colors');
+            $table->string('Genre');
             $table->float('Price');
             $table->float('Rating');
             $table->float('Rating_no');
             $table->string('Image_url');
             $table->string('Thumbnails');
+            $table->boolean('Liked');
         });
     }
 

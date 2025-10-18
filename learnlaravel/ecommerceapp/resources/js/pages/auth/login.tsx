@@ -17,6 +17,7 @@ interface LoginProps {
 }
 
 export default function Login({ status, canResetPassword }: LoginProps) {
+    console.log(store.form());
     return (
         <LoginLayout>
             <Head title="Log in - ProdAfrica" />
@@ -27,7 +28,6 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         <>
                             <div className="grid gap-6">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email address</Label>
                                     <Input
                                         id="email"
                                         type="email"
