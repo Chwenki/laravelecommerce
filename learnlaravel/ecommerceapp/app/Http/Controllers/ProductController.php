@@ -29,14 +29,14 @@ class ProductController extends Controller
         $thumbs = DB::table('products')->where('Name', $productName)->value('Thumbnails');
         $thumbnails = explode(',', $thumbs);
         if (Auth::check()){
-            $prodNum = DB::table('cart_products')->where('User_id', '=', Auth::id())->count();
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [Auth::id()]));
         } else {
             $prodNum = DB::table('cart_products')->where('id', '=', $token)->count();
         }
         if (!$product){
             return response()->view('notfound', ['Error'], 404);
         } else {
-            return Inertia::render('product', ['product' => $product, 'thumbnails' => $thumbnails, 'prodNum' => $prodNum]);  
+            return Inertia::render('product', ['product' => $product, 'thumbnails' => $thumbnails, 'cartProd' => $cartProd]);  
         }
     }
 
@@ -59,11 +59,11 @@ class ProductController extends Controller
         }
         
         if (Auth::check()){
-            $prodNum = DB::table('cart_products')->where('User_id', '=', Auth::id())->count();
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [Auth::id()]));
         } else {
             $prodNum = DB::table('cart_products')->where('id', '=', $token)->count();
         }
 
-        return Inertia::render('product', ['product' => $product, 'thumbnails' => $thumbnails, 'prodNum' => $prodNum]);
+        return Inertia::render('product', ['product' => $product, 'thumbnails' => $thumbnails, 'cartProd' => $cartProd]);
     }
 }

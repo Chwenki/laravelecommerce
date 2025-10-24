@@ -6,15 +6,14 @@ import { X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useScrollDirection } from '../hooks/useScrollDirection';
 
-export default function Nav({ prodNum, cartProd = [], modal = false, errors = {}, isLoggedIn = false }) {
+export default function Nav({ cartProd, modal = false, errors = {}, isLoggedIn = false }) {
     //must remove isLoggedIn later from props list because the default value is not usefull is isLoggedIn must be set at all times for Nav
     const [cartDrop, setCartDrop] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(modal);
     const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-    console.log(isRegisterOpen);
     const currentURL = '/';
     const currentPath = window.location.pathname;
-    console.log(currentPath);
+    console.log(cartProd);
 
     const scrollDirection = useScrollDirection();
     useEffect(() => {
@@ -99,7 +98,7 @@ export default function Nav({ prodNum, cartProd = [], modal = false, errors = {}
                                 <i class="fas fa-bag-shopping"></i>
                             </span>
                             <span className="absolute top-5 right-3 flex w-4 justify-center rounded-full bg-gray-700 text-xs text-white opacity-80">
-                                {prodNum}
+                                {cartProd}
                             </span>
                         </Link>
                         {cartDrop && cartProd.length == 0 && (

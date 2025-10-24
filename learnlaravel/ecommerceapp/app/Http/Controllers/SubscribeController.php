@@ -9,7 +9,7 @@ use App\Mail\ConfirmNewsletterSubscription;
 
 class SubscribeController extends Controller
 {
-    function post(Request $request) {
+    public function post(Request $request) {
         Mail::to("test@gmail.com")->send(new ConfirmNewsletterSubscription());
         $email = $request->all()['email'];
         DB::insert('insert into newslettersubs (email) values (?)', [$email]);

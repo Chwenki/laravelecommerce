@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductsPageController extends Controller
 {
-    function get_men() {
+    function get_men(Request $request) {
+        $token = $request->session()->all()['_token'];
         $products = DB::select('select * from products where Genre = ?', ['Men']);
         if (Auth::check()){
-            $prodNum = DB::table('cart_products')->where('User_id', '=', Auth::id())->count();
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [Auth::id()]));
         } else {
-            $prodNum = DB::table('cart_products')->where('id', '=', '123456789')->count();
-        }
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [$token]));        }
         $wishlist = DB::select('select * from wishlist where user_id = ?', [Auth::id()]);
         $wishlistprod = [];
         for ($i = 0; $i < count($wishlist); $i++){
@@ -26,33 +26,33 @@ class ProductsPageController extends Controller
                 }
             }
         }
-        return Inertia::render('productspage', ['products' => $products, 'prodNum' => $prodNum, 'wishlistprod' => $wishlistprod]);
+        return Inertia::render('productspage', ['products' => $products, 'cartProd' => $cartProd, 'wishlistprod' => $wishlistprod]);
     }
-    function get_women() {
+    function get_women(Request $request) {
+        $token = $request->session()->all()['_token'];
         $products = DB::select('select * from products where Genre = ?', ['Women']);
         if (Auth::check()){
-            $prodNum = DB::table('cart_products')->where('User_id', '=', Auth::id())->count();
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [Auth::id()]));
         } else {
-            $prodNum = DB::table('cart_products')->where('id', '=', '123456789')->count();
-        }
-        return Inertia::render('productspage',  ['products' => $products, 'prodNum' => $prodNum]);
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [$token]));        }
+        return Inertia::render('productspage',  ['products' => $products, 'cartProd' => $cartProd]);
     }
-    function get_kids() {
+    function get_kids(Request $request) {
+        $token = $request->session()->all()['_token'];
         $products = DB::select('select * from products where Genre = ?', ['Kids']);
         if (Auth::check()){
-            $prodNum = DB::table('cart_products')->where('User_id', '=', Auth::id())->count();
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [Auth::id()]));
         } else {
-            $prodNum = DB::table('cart_products')->where('id', '=', '123456789')->count();
-        }
-        return Inertia::render('productspage',  ['products' => $products, 'prodNum' => $prodNum]);
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [$token]));        }
+        return Inertia::render('productspage',  ['products' => $products, 'cartProd' => $cartProd]);
     }
     function post_men(Request $request) {
+        $token = $request->session()->all()['_token'];
         $products = DB::select('select * from products where Genre = ?', ['Men']);
         if (Auth::check()){
-            $prodNum = DB::table('cart_products')->where('User_id', '=', Auth::id())->count();
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [Auth::id()]));
         } else {
-            $prodNum = DB::table('cart_products')->where('id', '=', '123456789')->count();
-        }
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [$token]));        }
 
         if (Auth::check()) {
             if ( $request->all()["prodLiked"] == true) {
@@ -63,36 +63,36 @@ class ProductsPageController extends Controller
         } else {
             return Inertia::render('login');
         }
-        return Inertia::render('productspage',  ['products' => $products, 'prodNum' => $prodNum]);
+        return Inertia::render('productspage',  ['products' => $products, 'cartProd' => $cartProd]);
     }
     function post_women(Request $request) {
+        $token = $request->session()->all()['_token'];
         $products = DB::select('select * from products where Genre = ?', ['Women']);
         if (Auth::check()){
-            $prodNum = DB::table('cart_products')->where('User_id', '=', Auth::id())->count();
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [Auth::id()]));
         } else {
-            $prodNum = DB::table('cart_products')->where('id', '=', '123456789')->count();
-        }
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [$token]));        }
 
         if ($request->all()["prodLiked"]) {
             DB::table('products')->where('id', $request->all()["prodId"])->update(['Liked' => false]);
         } else {
             DB::table('products')->where('id', $request->all()["prodId"])->update(['Liked' => true]);
         }
-        return Inertia::render('productspage',  ['products' => $products, 'prodNum' => $prodNum]);
+        return Inertia::render('productspage',  ['products' => $products, 'cartProd' => $cartProd]);
     }
     function post_kids(Request $request) {
+        $token = $request->session()->all()['_token'];
         $products = DB::select('select * from products where Genre = ?', ['Kids']);
         if (Auth::check()){
-            $prodNum = DB::table('cart_products')->where('User_id', '=', Auth::id())->count();
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [Auth::id()]));
         } else {
-            $prodNum = DB::table('cart_products')->where('id', '=', '123456789')->count();
-        }
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [$token]));        }
 
         if ($request->all()["prodLiked"]) {
             DB::table('products')->where('id', $request->all()["prodId"])->update(['Liked' => false]);
         } else {
             DB::table('products')->where('id', $request->all()["prodId"])->update(['Liked' => true]);
         }
-        return Inertia::render('productspage',  ['products' => $products, 'prodNum' => $prodNum]);
+        return Inertia::render('productspage',  ['products' => $products, 'cartProd' => $cartProd]);
     }
 }

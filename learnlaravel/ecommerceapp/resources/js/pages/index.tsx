@@ -12,7 +12,7 @@ export default function Index(props) {
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
                 <script src="https://kit.fontawesome.com/2139c11586.js" crossorigin="anonymous"></script>
             </Head>
-            <Nav prodNum={props['prodNum']} cartProd={props['cart_products']} errors={props['errors']} isLoggedIn={props['isLoggedIn']} />
+            <Nav cartProd={props['cartProd']} errors={props['errors']} isLoggedIn={props['isLoggedIn']} />
             <div className="relative mt-15">
                 <img className="w-full" src="/images/homepage1.png" alt="" />
                 <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-r from-gray-900 to-transparent"></div>

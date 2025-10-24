@@ -22,18 +22,18 @@ class MenController extends Controller
             }
         }
         if (Auth::check()){
-            $prodNum = DB::table('cart_products')->where('User_id', '=', Auth::id())->count();
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [Auth::id()]));
         } else {
             $prodNum = DB::table('cart_products')->where('id', '=', $token)->count();
         }
-        return Inertia::render('men', ['products' => $products,'prodNum' => $prodNum, 'wishlistprod' => $wishlistprod]);
+        return Inertia::render('men', ['products' => $products,'cartProd' => $cartProd, 'wishlistprod' => $wishlistprod]);
     }
     function post(Request $request) {
         $modal = false;
         $token = $request->session()->all()['_token'];
         $products = DB::select('select * from products where Genre = ?', ['Men']);
         if (Auth::check()){
-            $prodNum = DB::table('cart_products')->where('User_id', '=', Auth::id())->count();
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [Auth::id()]));
         } else {
             $prodNum = DB::table('cart_products')->where('id', '=', $token)->count();
         }
@@ -47,6 +47,6 @@ class MenController extends Controller
         } else {
             return $modal = true;
         }
-        return Inertia::render('men',  ['products' => $products, 'prodNum' => $prodNum, 'modal' => $modal]);
+        return Inertia::render('men',  ['products' => $products, 'cartProd' => $cartProd, 'modal' => $modal]);
     }
 }

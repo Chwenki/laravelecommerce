@@ -10,15 +10,15 @@ use Illuminate\Support\Facades\Auth;
 
 class WomenController extends Controller
 {
-    function get() {
+    function get(Request $request) {
+        $token = $request->session()->all()['_token'];
         $products = DB::select('select * from products');
         if (Auth::check()){
-            $prodNum = DB::table('cart_products')->where('User_id', '=', Auth::id())->count();
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [Auth::id()]));
         } else {
-            $prodNum = DB::table('cart_products')->where('id', '=', '123456789')->count();
-        }
+            $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [$token]));        }
 
-        return Inertia::render('women', ['products' => $products, 'prodNum' => $prodNum]);
+        return Inertia::render('women', ['products' => $products, 'cartProd' => $cartProd]);
     }
 }
 
