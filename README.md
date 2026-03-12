@@ -17,7 +17,7 @@ Clone repository:
 Execute the following commands:
 
 ```
-<!-- Navigate to main folder -->
+<!--- Navigate to main folder -->
 cd learnlaravel\ecommerceapp
 composer install && npm install
 npm audit fix --force
