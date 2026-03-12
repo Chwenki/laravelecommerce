@@ -16,14 +16,26 @@ Clone repository:
 
 Execute the following commands:
 
-```
-<!--- Navigate to main folder -->
+```bash
+# Navigate to main folder 
 cd learnlaravel\ecommerceapp
+
+# Install composer and npm
 composer install && npm install
+
+# Fix any remaining issues
 npm audit fix --force
+
+# Create .env file
 cp .env.example .env
+
+# Generate new application key
 php artisan key:generate
+
+# Generate database
 php artisan migrate
+
+# Launch website
 composer run dev
 ```
 
