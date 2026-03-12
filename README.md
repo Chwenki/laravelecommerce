@@ -10,9 +10,9 @@ The following have to be installed for the website to launch
 
 ## How to install
 
-Pull files:
+Clone repository:
 
-`git pull https://github.com/Chwenki/laravelecommerce.git`
+`git clone https://github.com/Chwenki/laravelecommerce.git`
 
 Execute the following commands:
 
