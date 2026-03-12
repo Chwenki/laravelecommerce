@@ -5,7 +5,7 @@ This is an ecommerce website based on the laravel framework. Technologies used h
 ## Prerequisites
 The following have to be installed for the website to launch
 - Laravel framework
-- NPM
+- NPM (Node Package Manager)
 - Swipperjs
 
 ## How to install
