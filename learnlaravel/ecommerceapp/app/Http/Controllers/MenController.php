@@ -24,6 +24,7 @@ class MenController extends Controller
         if (Auth::check()){
             $cartProd = count(DB::select('select cart_products.id, cart_products.Prod_id, cart_products.User_id, products.Name, products.Type, products.Description, products.Colors, products.Genre, products.Price, products.Rating, products.Rating_no, products.Image_url, products.Thumbnails from cart_products join products on cart_products.Prod_id = products.id where cart_products.User_id = ?', [Auth::id()]));
         } else {
+            $cartProd = [];
             $prodNum = DB::table('cart_products')->where('id', '=', $token)->count();
         }
         return Inertia::render('men', ['products' => $products,'cartProd' => $cartProd, 'wishlistprod' => $wishlistprod]);
