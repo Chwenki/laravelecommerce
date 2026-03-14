@@ -101,15 +101,7 @@ export default function Nav({ cartProd, modal = false, errors = {}, isLoggedIn =
                                 {cartProd}
                             </span>
                         </Link>
-                        {cartDrop && cartProd.length == 0 && (
-                            <div
-                                onMouseEnter={() => setCartDrop(true)}
-                                onMouseLeave={() => setCartDrop(false)}
-                                className="absolute top-12 right-2 w-55 overflow-auto rounded-xs border-1 bg-white px-4 py-3 text-base font-semibold"
-                            >
-                                <p>Your Cart is Empty!</p>
-                            </div>
-                        )}
+                        
                     </div>
                 </div>
             </nav>
